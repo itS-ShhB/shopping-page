@@ -7,6 +7,9 @@ import { shorten, isInCart, quantityCount } from "../../helpers/function.js";
 //Context
 import { CartContext } from "../../context/CartContextProvider";
 
+//Icons
+import trashIcon from "../../assets/icons/trash.svg";
+
 const Product = ({ productData }) => {
   const { state, dispatch } = useContext(CartContext);
 
@@ -19,24 +22,6 @@ const Product = ({ productData }) => {
         <div>
           <Link to={`/products/${productData.id}`}>Details</Link>
           <div>
-            {isInCart(state, productData.id) ? (
-              <button
-                onClick={() =>
-                  dispatch({ type: "INCREASE", payload: productData })
-                }
-              >
-                +
-              </button>
-            ) : (
-              <button
-                onClick={() =>
-                  dispatch({ type: "ADD_ITEM", payload: productData })
-                }
-              >
-                Add to Cart
-              </button>
-            )}
-
             {quantityCount(state, productData.id) > 1 && (
               <button
                 onClick={() =>
@@ -52,7 +37,24 @@ const Product = ({ productData }) => {
                   dispatch({ type: "REMOVE_ITEM", payload: productData })
                 }
               >
-                Remove Item
+                <img src={trashIcon} alt="trash" style={{ width: "20px" }} />
+              </button>
+            )}
+            {isInCart(state, productData.id) ? (
+              <button
+                onClick={() =>
+                  dispatch({ type: "INCREASE", payload: productData })
+                }
+              >
+                +
+              </button>
+            ) : (
+              <button
+                onClick={() =>
+                  dispatch({ type: "ADD_ITEM", payload: productData })
+                }
+              >
+                Add to Cart
               </button>
             )}
           </div>
