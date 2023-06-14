@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 //Context
 import { CartContext } from "../../context/CartContextProvider";
@@ -14,16 +14,16 @@ const Cart = (props) => {
 
   return (
     <div>
-      <img src={props?.image} alt="product" />
+      <img src={props?.data.image} alt="product" />
       <div>
         {/* <h3>{shorten(title)}</h3> */}
-        <p>{props?.price} $</p>
+        <p>{props?.data.price} $</p>
       </div>
       <div>
-        <span> {props?.quantity} </span>
+        <span> {props?.data.quantity} </span>
       </div>
       <div>
-        {props?.quantity > 1 ? (
+        {props?.data.quantity > 1 ? (
           <button
             onClick={() => dispatch({ type: "DECREASE", payload: props?.data })}
           >
