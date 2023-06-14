@@ -11,33 +11,38 @@ import trashIcon from "../../assets/icons/trash.svg";
 
 const Cart = (props) => {
   const { dispatch } = useContext(CartContext);
-
   return (
     <div>
-      <img src={props?.data.image} alt="product" />
+      <img src={props.data.item.image} alt="product" />
       <div>
-        {/* <h3>{shorten(title)}</h3> */}
-        <p>{props?.data.price} $</p>
+        <h3>{shorten(props.data.item.title)}</h3>
+        <p>{props.data.item.price} $</p>
       </div>
       <div>
-        <span> {props?.data.quantity} </span>
+        <span> {props.data.item.quantity} </span>
       </div>
       <div>
-        {props?.data.quantity > 1 ? (
+        {props.data.item.quantity > 1 ? (
           <button
-            onClick={() => dispatch({ type: "DECREASE", payload: props?.data })}
+            onClick={() =>
+              dispatch({ type: "DECREASE", payload: props.data.item })
+            }
           >
             -
           </button>
         ) : (
           <button
-            onClick={() => dispatch({ type: "DECREASE", payload: props?.data })}
+            onClick={() =>
+              dispatch({ type: "DECREASE", payload: props.data.item })
+            }
           >
             <img src={trashIcon} alt="Trash Icon" style={{ width: "20px" }} />
           </button>
         )}
         <button
-          onClick={() => dispatch({ type: "INCREASE", payload: props.data })}
+          onClick={() =>
+            dispatch({ type: "INCREASE", payload: props.data.item })
+          }
         >
           +
         </button>
