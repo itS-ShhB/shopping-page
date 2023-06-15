@@ -7,6 +7,9 @@ import { shorten, isInCart, quantityCount } from "../../helpers/function.js";
 //Context
 import { CartContext } from "../../context/CartContextProvider";
 
+//Style's
+import styles from "./Product.module.css";
+
 //Icons
 import trashIcon from "../../assets/icons/trash.svg";
 
@@ -15,15 +18,20 @@ const Product = ({ productData }) => {
 
   return (
     <>
-      <div>
-        <img src={productData.image} alt="product" style={{ width: "300px" }} />
+      <div className={styles.container}>
+        <img
+          className={styles.cardImage}
+          src={productData.image}
+          alt="product"
+        />
         <h3>{shorten(productData.title)}</h3>
         <p>{productData.price} $</p>
-        <div>
+        <div className={styles.linkContainer}>
           <Link to={`/products/${productData.id}`}>Details</Link>
-          <div>
+          <div className={styles.buttonContainer}>
             {quantityCount(state, productData.id) > 1 && (
               <button
+                className={styles.smallButton}
                 onClick={() =>
                   dispatch({ type: "DECREASE", payload: productData })
                 }
@@ -33,6 +41,7 @@ const Product = ({ productData }) => {
             )}
             {quantityCount(state, productData.id) === 1 && (
               <button
+                className={styles.smallButton}
                 onClick={() =>
                   dispatch({ type: "REMOVE_ITEM", payload: productData })
                 }
@@ -40,8 +49,14 @@ const Product = ({ productData }) => {
                 <img src={trashIcon} alt="trash" style={{ width: "20px" }} />
               </button>
             )}
+            {quantityCount(state, productData.id) > 0 && (
+              <span className={styles.counter}>
+                {quantityCount(state, productData.id)}
+              </span>
+            )}
             {isInCart(state, productData.id) ? (
               <button
+                className={styles.smallButton}
                 onClick={() =>
                   dispatch({ type: "INCREASE", payload: productData })
                 }
